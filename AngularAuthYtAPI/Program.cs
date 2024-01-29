@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Nethi.Repository;
 using System.Text;
+using Nethi.Repository;
+using Nethi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,9 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"));
 });
+builder.Services.AddScoped<IAdminRepostory, AdminRepository>();
+builder.Services.AddScoped<IAdminServices, AdminServices>();
+
 
 builder.Services.AddAuthentication(x =>
 {
